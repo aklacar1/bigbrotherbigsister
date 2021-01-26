@@ -1,0 +1,46 @@
+version: '3'
+services:
+    db:
+        image: postgres:10 # same version as on heroku
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: prevencija
+        volumes:
+            - ./postgres/data:/var/lib/postgresql/data
+            - ./postgres/snapshots:/var/lib/postgresql/snapshots
+        ports:
+            - '5432:5432'
+        expose:
+            - '5432'
+
+    backend:
+        build:
+            context: ./backend
+        ports:
+            - '0.0.0.0:8000:8000'
+            - '3000:3000'
+        expose:
+            - '3000'
+        stdin_open: true # For pdb debugger
+        tty: true # For pdb debugger
+        volumes:
+            - './backend/:/app/'
+        environment:
+            DEBUG: 'TRUE'
+            DJANGO_SETTINGS_MODULE: 'prevencija.settings'
+            DATABASE_URL: 'postgres://postgres:postgres@db:5432/prevencija'
+            REMOTE_DEBUG: 'TRUE'
+        depends_on:
+            - db
+        # In development mode, we want overwrite the CMD from the Dockerfile
+        # in order to use manage.py, and run the update_project script every
+        # time we restart.
+        command: >-
+            sh -c "
+                pip install -r requirements.txt &&
+                pip install -r dev-requirements.txt &&
+                ./scripts/wait-for-postgres.sh db postgres postgres &&
+                python manage.py migrate --noinput &&
+                python manage.py runserver 0.0.0.0:8000
+            "

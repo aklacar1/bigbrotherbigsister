@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -e
+coverage run --source 'prevencija' manage.py test --keepdb --exe
+coverage report

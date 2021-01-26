@@ -1,0 +1,24 @@
+HEROKU_API_KEY=4e6e0793-e2f6-4414-ae91-909bdbcfc2c9
+ENV=production
+HEROKU_APP_BACKEND="prevencija"
+HEROKU_REGISTRY="registry.heroku.com"
+
+echo "Stopping hanging containers"
+echo
+docker-compose -f docker-compose.jenkins.yml down
+echo "-------------------------------------------------------"
+docker login --username=_ --password="$HEROKU_API_KEY" $HEROKU_REGISTRY
+docker build \
+    --build-arg ENV=$ENV \
+    -t "${HEROKU_REGISTRY}/${HEROKU_APP_BACKEND}/web" \
+    -f backend/Dockerfile \
+    backend
+docker push "$HEROKU_REGISTRY/$HEROKU_APP_BACKEND/web"
+
+echo "-------------------------------------------------------"
+echo "Deploying Docker Containers to Heroku"
+echo
+heroku auth:whoami
+heroku container:login
+heroku container:release web --app $HEROKU_APP_BACKEND
+echo "-------------------------------------------------------"

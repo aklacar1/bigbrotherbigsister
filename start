@@ -1,0 +1,5 @@
+set -e
+
+echo "Starting App against Local Database"
+docker-compose down && docker-compose up
+exit 1

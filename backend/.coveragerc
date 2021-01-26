@@ -1,0 +1,14 @@
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+
+omit =
+    prevencija/settings.py
+    prevencija/settings_*.py
+    prevencija/tests/*
+    prevencija/migrations/*
+    */__init__.py
+    prevencija/wsgi.py
