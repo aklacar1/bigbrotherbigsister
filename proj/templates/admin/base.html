@@ -1,0 +1,84 @@
+{% extends 'admin/base.html' %}
+
+{% block extrahead %}{{ block.super }}
+<style>
+/* VARIABLE DEFINITIONS */
+:root {
+  --primary: #2196F3;
+  --secondary: #1976D2;
+  --accent: #FFEB3B;
+  --primary-fg: #000;
+
+  --body-fg: #333;
+  --body-bg: #fff;
+  --body-quiet-color: #666;
+  --body-loud-color: #000;
+
+  --header-color: #ffc;
+  --header-branding-color: var(--accent);
+  --header-bg: var(--secondary);
+  --header-link-color: var(--primary-fg);
+
+  --breadcrumbs-fg: #c4dce8;
+  --breadcrumbs-link-fg: var(--body-bg);
+  --breadcrumbs-bg: var(--primary);
+
+  --link-fg: #447e9b;
+  --link-hover-color: #036;
+  --link-selected-fg: #5b80b2;
+
+  --hairline-color: #e8e8e8;
+  --border-color: #ccc;
+
+  --error-fg: #ba2121;
+
+  --message-success-bg: #dfd;
+  --message-warning-bg: #ffc;
+  --message-error-bg: #ffefef;
+
+  --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
+  --selected-bg: #e4e4e4; /* E.g. selected table cells */
+  --selected-row: #FFEB3B;
+
+  --button-fg: #fff;
+  --button-bg: var(--primary);
+  --button-hover-bg: #1976D2;
+  --default-button-bg: var(--primary);
+  --default-button-hover-bg: #1976D2;
+  --close-button-bg: #888; /* Previously #bbb, contrast 1.92 */
+  --close-button-hover-bg: #747474;
+  --delete-button-bg: #ba2121;
+  --delete-button-hover-bg: #a41515;
+
+  --object-tools-fg: var(--button-fg);
+  --object-tools-bg: var(--close-button-bg);
+  --object-tools-hover-bg: var(--close-button-hover-bg);
+}
+
+.field-__str__ {
+  font-family: Consolas, monospace;
+}
+
+.inline-group .tabular fieldset.module {
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.toggle-nav-sidebar {
+  display: none;
+}
+
+.main.shifted > #nav-sidebar {
+    left: 0;
+    margin-left: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.object-tools > li > .addlink {
+  background-color: var(--primary);
+}
+
+</style>
+{% endblock %}

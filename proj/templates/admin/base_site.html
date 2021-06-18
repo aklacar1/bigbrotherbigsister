@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block branding %}
+
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+    <img class="logo default" src="{% static 'narko-ne.png' %}" width="124" height="56">
+    </a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
